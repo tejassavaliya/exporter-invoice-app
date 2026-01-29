@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Master Data Tables
+
+model Party {
+  id        String   @id @default(uuid())
+  type      String   // "EXPORTER", "CONSIGNEE", "NOTIFY_PARTY"
+  name      String
+  address   String?
+  gstNo     String?
+  iec       String?
+  pan       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  hsn         String?
+  unitPrice   Float?
+  unit        String?  // e.g. "KGS"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Transaction Tables
+
+model Invoice {
+  id        String   @id @default(uuid())
+  invoiceNo String   @unique // User entered
+  invoiceDate DateTime
+
+  // Exporter Snapshot
+  exporterName    String
+  exporterAddress String
+  exporterGstNo   String?
+  exporterIec     String?
+  exporterLutNo   String? // Added based on screenshot
+  state           String?
+  stateCode       String?
+  districtCode    String?
+  tradeAgreementCode String?
+
+  // Consignee Snapshot
+  consigneeName    String
+  consigneeAddress String
+
+  // Notify Party Snapshot
+  notifyName    String?
+  notifyAddress String?
+
+  // Shipment Details
+  preCarriageBy       String?
+  placeOfReceipt      String?
+  countryOfOrigin     String?
+  countryOfDestination String?
+  vesselFlightNo      String?
+  portOfLoading       String?
+  portOfDischarge     String?
+  finalDestination    String?
+  
+  // References
+  buyersOrderNo    String?
+  piNo             String?
+  termsOfPayment   String?
+  modeOfTransport  String? // ROAD/RAIL etc.
+  
+  // Totals
+  totalAmountCIF   Float   @default(0)
+  amountInWords    String?
+
+  items InvoiceItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model InvoiceItem {
+  id          String   @id @default(uuid())
+  invoiceId   String
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  
+  marksAndNos String?
+  hsn         String?
+  srNo        String?
+  description String
+  quantity    Float
+  rate        Float
+  totalAmount Float
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
