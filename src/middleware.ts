@@ -8,6 +8,11 @@ export default withAuth(
     if (req.nextUrl.pathname.startsWith("/admin") && req.nextauth.token?.role !== "ADMIN") {
         return NextResponse.redirect(new URL("/", req.url));
     }
+    
+    // Explicitly redirect root to login if no token (redundant with authorized callback but safe)
+    if (req.nextUrl.pathname === "/" && !req.nextauth.token) {
+        return NextResponse.redirect(new URL("/login", req.url));
+    }
   },
   {
     callbacks: {

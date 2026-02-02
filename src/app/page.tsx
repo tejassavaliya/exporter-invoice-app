@@ -3,12 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { Invoice } from "@prisma/client"; // Added import
 
 export default async function DashboardPage() {
-  const invoices = await db.invoice.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 20,
-  });
+  let invoices: Invoice[] = []; // Added type annotation
+  try {
+    invoices = await db.invoice.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 20,
+    });
+  } catch (error) {
+    console.error("Failed to fetch invoices (likely DB issue on Netlify):", error);
+    // Fallback to empty array so page renders
+    invoices = [];
+  }
 
   return (
     <div className="container mx-auto py-10">
