@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import { CsvUploadDialog } from "@/components/csv-upload-dialog";
+
 export default async function ProductsPage() {
   const products = await getProducts();
 
@@ -11,6 +13,11 @@ export default async function ProductsPage() {
     <div className="container mx-auto max-w-6xl">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold tracking-tight">Product Master</h1>
+        <CsvUploadDialog 
+          entityName="Products" 
+          expectedHeaders={["name", "description", "hsn", "unitPrice", "unit"]}
+          uploadUrl="/api/products/upload"
+        />
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

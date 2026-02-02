@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import { CsvUploadDialog } from "@/components/csv-upload-dialog";
+
 export default async function PartiesPage() {
   const parties = await getParties();
 
@@ -11,6 +13,11 @@ export default async function PartiesPage() {
     <div className="container mx-auto max-w-6xl">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold tracking-tight">Party Master</h1>
+        <CsvUploadDialog 
+          entityName="Parties" 
+          expectedHeaders={["name", "type", "address", "gstNo", "iec", "pan"]}
+          uploadUrl="/api/parties/upload"
+        />
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

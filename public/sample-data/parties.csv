@@ -1,0 +1,6 @@
+name,type,address,gstNo,iec,pan
+Global Exports Ltd,EXPORTER,"123 Business Park, Mumbai, India",27AABCU9603R1ZM,0500001234,ABCDE1234F
+Fast Trade Inc,CONSIGNEE,"456 Commerce Ave, New York, USA",,,
+Logistics Solutions,NOTIFY_PARTY,"789 Port Road, Hamburg, Germany",,,
+Alpha Traders,EXPORTER,"99 Market St, Delhi, India",07AAECR1234Q1Z5,0500005678,PQRST5678G
+Beta Imports,CONSIGNEE,"321 Ocean Drive, Sydney, Australia",,,
