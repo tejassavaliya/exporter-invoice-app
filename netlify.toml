@@ -1,0 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[functions]
+  included_files = ["prisma/schema.prisma", "prisma/dev.db"] 
+  # Note: including dev.db allows read-only access to pre-seeded data if committed, 
+  # but writes won't persist.
