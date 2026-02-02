@@ -16,8 +16,8 @@ export default async function InvoicePage({ params }: { params: { id: string } }
   return (
     <div className="container mx-auto py-10 max-w-4xl">
       <div className="flex items-center justify-between mb-6">
-        <Link href="/invoices" className="text-sm text-muted-foreground flex items-center gap-2 hover:text-foreground">
-          <ArrowLeft className="w-4 h-4" /> Back to List
+        <Link href="/dashboard" className="text-sm text-muted-foreground flex items-center gap-2 hover:text-foreground">
+          <ArrowLeft className="w-4 h-4" /> Back to Dashboard
         </Link>
         <div className="flex gap-2">
            <Button asChild variant="outline">

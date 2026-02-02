@@ -6,7 +6,7 @@ export default withAuth(
     // specific handling if needed
     // e.g. admin routes check
     if (req.nextUrl.pathname.startsWith("/admin") && req.nextauth.token?.role !== "ADMIN") {
-        return NextResponse.redirect(new URL("/", req.url));
+        return NextResponse.redirect(new URL("/dashboard", req.url));
     }
     
     // Explicitly redirect root to login if no token (redundant with authorized callback but safe)
