@@ -9,3 +9,9 @@
   included_files = ["prisma/schema.prisma", "prisma/dev.db"] 
   # Note: including dev.db allows read-only access to pre-seeded data if committed, 
   # but writes won't persist.
+
+
+[[redirects]]
+from = "/*"
+to = "index.html"
+status = 200
